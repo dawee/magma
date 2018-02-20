@@ -1,6 +1,6 @@
 local dict = require('magma.dict')
 
-local suite = {name = 'Dict', tests = {}}
+local suite = {name = 'dict', tests = {}}
 
 function suite.tests.dict1(it)
   local test = it('should create a new dict')
