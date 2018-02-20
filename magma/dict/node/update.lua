@@ -1,5 +1,5 @@
-local newArrayMapNode = require('magma.map.node.arraymap')
-local newValueNode = require('magma.map.node.value')
+local newArrayMapNode = require('magma.dict.node.arraymap')
+local newValueNode = require('magma.dict.node.value')
 local util = require('magma.util')
 local NOT_SET = require('magma.notset')
 

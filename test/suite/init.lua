@@ -1,3 +1,3 @@
 return {
-  immutableSuite = require('test.suite.immutable'),
+  dictSuite = require('test.suite.dict'),
 }

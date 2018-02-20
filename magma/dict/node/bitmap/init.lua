@@ -1,5 +1,5 @@
-local update = require('magma.map.node.bitmap.update')
-local popCount = require('magma.map.node.bitmap.popcount')
+local update = require('magma.dict.node.bitmap.update')
+local popCount = require('magma.dict.node.bitmap.popcount')
 local util = require('magma.util')
 local MASK = require('magma.mask')
 local SHIFT = require('magma.shift')

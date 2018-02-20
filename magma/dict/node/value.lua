@@ -1,5 +1,5 @@
 local util = require('magma.util')
-local mergeIntoNode = require('magma.map.node.merge')
+local mergeIntoNode = require('magma.dict.node.merge')
 local NOT_SET = require('magma.notset')
 
 local function valueNodeGet(node, shift, keyHash, key, notSetValue)

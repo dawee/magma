@@ -1,11 +1,11 @@
-local newBitmapIndexedNode = require('magma.map.node.bitmap')
-local newHashCollisionNode = require('magma.map.node.collision')
+local newBitmapIndexedNode = require('magma.dict.node.bitmap')
+local newHashCollisionNode = require('magma.dict.node.collision')
 local SIZE = require('magma.size')
 local MASK = require('magma.mask')
 local SHIFT = require('magma.shift')
 
 local function mergeIntoNode(node, ownerID, shift, keyHash, entry, newValueNode)
-  local newValueNode = require('magma.map.node.value')
+  local newValueNode = require('magma.dict.node.value')
 
   if node.keyHash == keyHash then
     return newHashCollisionNode(ownerID, keyHash, {node.entry, entry});

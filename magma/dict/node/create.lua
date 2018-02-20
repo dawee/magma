@@ -1,4 +1,4 @@
-local newValueNode = require('magma.map.node.value')
+local newValueNode = require('magma.dict.node.value')
 local util = require('magma.util')
 
 local function newOwnerId()

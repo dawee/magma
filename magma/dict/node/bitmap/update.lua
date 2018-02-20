@@ -1,5 +1,5 @@
 local util = require('magma.util')
-local popCount = require('magma.map.node.bitmap.popcount')
+local popCount = require('magma.dict.node.bitmap.popcount')
 local MASK = require('magma.mask')
 local SHIFT = require('magma.shift')
 local NOT_SET = require('magma.notset')
@@ -34,8 +34,8 @@ local function spliceIn(array, idx, val, canEdit)
 end
 
 local function updateBitmapIndexedNode(node, ownerID, shift, keyHash, key, value, didChangeSize, didAlter)
-  local newBitmapIndexedNode = require('magma.map.node.bitmap')
-  local updateNode = require('magma.map.node.update')
+  local newBitmapIndexedNode = require('magma.dict.node.bitmap')
+  local updateNode = require('magma.dict.node.update')
 
   if keyHash == nil then
     keyHash = util.hash(key)

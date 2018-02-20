@@ -1,4 +1,4 @@
-local update = require('magma.map.node.collision.update')
+local update = require('magma.dict.node.collision.update')
 local util = require('magma.util')
 
 local function get(node, shift, keyHash, key, notSetValue)

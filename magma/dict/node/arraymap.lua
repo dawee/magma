@@ -1,12 +1,12 @@
 local util = require('magma.util')
-local createNodes = require('magma.map.node.create')
+local createNodes = require('magma.dict.node.create')
 local SIZE = require('magma.size')
 local NOT_SET = require('magma.notset')
 
 local MAX_ARRAY_MAP_SIZE = SIZE / 4
 
-local function arrayMapNodeGet(map, shift, keyHash, key, notSetValue)
-  local entries = map.entries
+local function arrayMapNodeGet(node, shift, keyHash, key, notSetValue)
+  local entries = node.entries
 
   for ii = 1, #entries do
     if util.is(key, entries[ii][1]) then
@@ -17,9 +17,9 @@ local function arrayMapNodeGet(map, shift, keyHash, key, notSetValue)
   return notSetValue
 end
 
-local function arrayMapNodeUpdate(map, ownerID, shift, keyHash, key, value, didChangeSize, didAlter)
+local function arrayMapNodeUpdate(node, ownerID, shift, keyHash, key, value, didChangeSize, didAlter)
   local removed = value == NOT_SET
-  local entries = map.entries
+  local entries = node.entries
   local idx = 1
   local len = #entries
 
@@ -34,7 +34,7 @@ local function arrayMapNodeUpdate(map, ownerID, shift, keyHash, key, value, didC
   local exists = idx <= len
 
   if (exists and (entries[idx][2] == value) or removed) then
-    return map
+    return node
   end
 
   util.setRef(didAlter)
@@ -51,7 +51,7 @@ local function arrayMapNodeUpdate(map, ownerID, shift, keyHash, key, value, didC
     return createNodes(ownerID, entries, key, value)
   end
 
-  local isEditable = ownerID and (ownerID == map.ownerID)
+  local isEditable = ownerID and (ownerID == node.ownerID)
   local newEntries = isEditable and entries or util.arrCopy(entries)
 
   if exists then
@@ -71,11 +71,11 @@ local function arrayMapNodeUpdate(map, ownerID, shift, keyHash, key, value, didC
   end
 
   if (isEditable) then
-    map.entries = newEntries;
-    return map;
+    node.entries = newEntries;
+    return node;
   end
 
-  return map.constructor(ownerID, newEntries)
+  return node.constructor(ownerID, newEntries)
 end
 
 local function newArrayMapNode(ownerID, entries)

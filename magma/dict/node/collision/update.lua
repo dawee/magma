@@ -2,9 +2,9 @@ local util = require('magma.util')
 local NOT_SET = require('magma.notset')
 
 local function updateHashCollisionNode(node, ownerID, shift, keyHash, key, value, didChangeSize, didAlter)
-  local mergeIntoNode = require('magma.map.node.merge')
-  local newValueNode = require('magma.map.node.value')
-  local newHashCollisionNode = require('magma.map.node.collision')
+  local mergeIntoNode = require('magma.dict.node.merge')
+  local newValueNode = require('magma.dict.node.value')
+  local newHashCollisionNode = require('magma.dict.node.collision')
 
   if keyHash == nil then
     keyHash = util.hash(key)
