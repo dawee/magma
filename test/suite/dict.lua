@@ -1,4 +1,4 @@
-local immutable = require('magma')
+local dict = require('magma.dict')
 
 local suite = {name = 'Dict', tests = {}}
 
@@ -6,7 +6,7 @@ function suite.tests.dict1(it)
   local test = it('should create a new dict')
 
   local function run(assert)
-    local dict = immutable.newDict()
+    local dict = dict()
     return assert.is(dict.__type, 'dict')
   end
 
@@ -17,7 +17,7 @@ function suite.tests.dict2(it)
   local test = it('should set a new dict with setted key')
 
   local function run(assert)
-    local dict = immutable.newDict()
+    local dict = dict()
     local newDict = dict:set('foo', 'bar')
 
     return assert.all(
@@ -33,7 +33,7 @@ function suite.tests.dict3(it)
   local test = it('should set a new dict with a modified key')
 
   local function run(assert)
-    local dict = immutable.newDict():set('foo', 'bar')
+    local dict = dict():set('foo', 'bar')
     local newDict = dict:set('foo', 'baz')
 
     return assert.all(
@@ -49,7 +49,7 @@ function suite.tests.dict4(it)
   local test = it('should set a new dict as a value')
 
   local function run(assert)
-    local dict = immutable.newDict():set('foo', immutable.newDict():set('bar', 'baz'))
+    local dict = dict():set('foo', dict():set('bar', 'baz'))
 
     return assert.is(dict:get('foo'):get('bar'), 'baz')
   end
@@ -61,7 +61,7 @@ function suite.tests.dict5(it)
   local test = it('should get content using table')
 
   local function run(assert)
-    local dict = immutable.newDict():set('foo', immutable.newDict():set('bar', 'baz'))
+    local dict = dict():set('foo', dict():set('bar', 'baz'))
 
     return assert.is(dict:get({'foo', 'bar'}), 'baz')
   end
@@ -73,7 +73,7 @@ function suite.tests.dict6(it)
   local test = it('should set content using table')
 
   local function run(assert)
-    local dict = immutable.newDict():set({'foo', 'bar', 'baz'}, 42)
+    local dict = dict():set({'foo', 'bar', 'baz'}, 42)
 
     return assert.is(dict:get({'foo', 'bar', 'baz'}), 42)
   end
@@ -85,7 +85,7 @@ function suite.tests.dict7(it)
   local test = it('should set multiple keys')
 
   local function run(assert)
-    local dict = immutable.newDict()
+    local dict = dict()
       :set('foo', 'bar')
       :set('bar', 'baz')
       :set('foobar', 42)
@@ -104,7 +104,7 @@ function suite.tests.dict8(it)
   local test = it('should set multiple keys and reset one')
 
   local function run(assert)
-    local dict = immutable.newDict()
+    local dict = dict()
       :set('foo', 'bar')
       :set('bar', 'baz')
       :set('foobar', 42)
@@ -124,7 +124,7 @@ function suite.tests.dict9(it)
   local test = it('should create large dicts of numbers')
 
   local function run(assert)
-    local dict = immutable.newDict()
+    local dict = dict()
       :set('foo1', 1)
       :set('foo2', 2)
       :set('foo3', 3)
@@ -173,7 +173,7 @@ function suite.tests.dict10(it)
   local test = it('should create large dicts of strings')
 
   local function run(assert)
-    local dict = immutable.newDict()
+    local dict = dict()
       :set('foo1', '1')
       :set('foo2', '2')
       :set('foo3', '3')
@@ -222,7 +222,7 @@ function suite.tests.dict11(it)
   local test = it('should create large dicts of booleans')
 
   local function run(assert)
-    local dict = immutable.newDict()
+    local dict = dict()
       :set('foo1', true)
       :set('foo2', false)
       :set('foo3', true)
@@ -271,7 +271,7 @@ function suite.tests.dict10(it)
   local test = it('should create large dicts of large string keys')
 
   local function run(assert)
-    local dict = immutable.newDict()
+    local dict = dict()
       :set('this is a very large string for key1', 1)
       :set('this is a very large string for key2', 2)
       :set('this is a very large string for key3', 3)
