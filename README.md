@@ -9,16 +9,19 @@ Functional programming library for [Löve](http://love2d.org).
 ```lua
 local dict = require('magma.dict')
 
-local book1 = dict()
+local bookSeries = dict()
   :set('author', 'Lemony Snicket')
-  :set('title', 'A Series Of Unfortunate Events 1')
+  :set('title', 'A Series Of Unfortunate Events')
 
-local book2 = book1
-  :set('title', 'A Series Of Unfortunate Events 2')
+local book1 = bookSeries
+  :set('title', bookSeries:get('title') .. ': The Bad Beginning')
+
+local book2 = bookSeries
+  :set('title', bookSeries:get('title') .. ': The Reptile Room')
 
 print('book1 title :', book1:get('title'))
--- A Series Of Unfortunate Events 1
+-- A Series Of Unfortunate Events : The Bad Beginning
 
-print('book2 title :', book1:get('title'))
--- A Series Of Unfortunate Events 2
+print('book2 title :', book2:get('title'))
+-- A Series Of Unfortunate Events : The Reptile Room
 ```
