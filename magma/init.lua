@@ -1,4 +1,7 @@
 return {
+  curry = require('magma.curry'),
   dict = require('magma.dict'),
-  set = require('magma.set')
+  isDict = require('magma.isdict'),
+  set = require('magma.set'),
+  split = require('magma.split'),
 }
