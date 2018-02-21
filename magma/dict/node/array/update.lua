@@ -5,19 +5,9 @@ local NOT_SET = require('magma.notset')
 
 local MAX_ARRAY_MAP_SIZE = SIZE / 4
 
-local function arrayMapNodeGet(node, shift, keyHash, key, notSetValue)
-  local entries = node.entries
+local function updateArrayNode(node, ownerID, shift, keyHash, key, value, didChangeSize, didAlter)
+  local newArrayNode = require('magma.dict.node.array')
 
-  for ii = 1, #entries do
-    if util.is(key, entries[ii][1]) then
-      return entries[ii][2]
-    end
-  end
-
-  return notSetValue
-end
-
-local function arrayMapNodeUpdate(node, ownerID, shift, keyHash, key, value, didChangeSize, didAlter)
   local removed = value == NOT_SET
   local entries = node.entries
   local idx = 1
@@ -75,17 +65,7 @@ local function arrayMapNodeUpdate(node, ownerID, shift, keyHash, key, value, did
     return node;
   end
 
-  return node.constructor(ownerID, newEntries)
+  return newArrayNode(ownerID, newEntries)
 end
 
-local function newArrayMapNode(ownerID, entries)
-  local node = {ownerID = ownerID, entries = entries}
-
-  node.constructor = newArrayMapNode
-  node.get = arrayMapNodeGet
-  node.update = arrayMapNodeUpdate
-
-  return node
-end
-
-return newArrayMapNode
+return updateArrayNode

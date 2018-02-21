@@ -1,4 +1,4 @@
-local newArrayMapNode = require('magma.dict.node.arraymap')
+local newArrayNode = require('magma.dict.node.array')
 local updateNode = require('magma.dict.node.update')
 local util = require('magma.util')
 local NOT_SET = require('magma.notset')
@@ -17,7 +17,7 @@ local function updateDict(dict, k, v)
     end
 
     newSize = 1;
-    newRoot = newArrayMapNode(dict.__ownerID, {{k, v}})
+    newRoot = newArrayNode(dict.__ownerID, {{k, v}})
   else
     local didChangeSize = util.makeRef(CHANGE_LENGTH)
     local didAlter = util.makeRef(DID_ALTER)
