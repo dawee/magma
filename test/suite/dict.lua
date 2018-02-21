@@ -324,6 +324,24 @@ local function setALotWithNumbersAndChangeTest(it)
   return test, run
 end
 
+local function iterateOnce(it)
+  local test = it('should iterate once')
+
+  local function run(assert)
+    local setDict = dict():set('foo', 'bar')
+    local iterator = setDict:iterator()
+    local el = iterator:next()
+
+    return assert.all(
+      assert.is(el.done, false),
+      assert.is(el.value[1], 'foo'),
+      assert.is(el.value[2], 'bar')
+    )
+  end
+
+  return test, run
+end
+
 return {
   name = 'dict',
   tests = {
@@ -338,5 +356,6 @@ return {
     setALotWithBooleansTest,
     setALotWithLargeKeysTest,
     setALotWithNumbersAndChangeTest,
+    iterateOnce
   }
 }

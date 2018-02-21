@@ -1,4 +1,5 @@
 local update = require('magma.dict.update')
+local newDictIterator = require('magma.dict.iterator')
 
 local function get(dict, k, notSetValue)
   if dict._root then
@@ -14,6 +15,7 @@ local function makeDict(size, root, ownerID, hash)
   dict.root = dict
   dict.set = update
   dict.get = get
+  dict.iterator = newDictIterator
 
   dict.size = size
   dict._root = root
