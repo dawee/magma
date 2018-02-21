@@ -1,11 +1,35 @@
 local curry = require('magma.curry')
+local emptyDict = require('magma.dict.empty')
+local isDict = require('magma.isdict')
 
-local function _set(keyPath, value, dict)
-  if not dict or not dict.set then
+local function setUsingKeyTable(keyTable, value, dict, keyIndex)
+  local key = keyTable[keyIndex]
+
+  if #keyTable == keyIndex then
+    return dict:set(key, value)
+  end
+
+  local subdict = dict:get(key)
+
+  if not subdict then
+    subdict = emptyDict()
+  elseif not isDict(subdict) then
     return dict
   end
 
-  return dict:set(keyPath, value)
+  return dict:set(key, setUsingKeyTable(keyTable, value, subdict, keyIndex + 1))
+end
+
+local function _set(key, value, dict)
+  if not dict or not dict.set or not dict.get then
+    return dict
+  end
+
+  if type(key) == 'table' then
+    return setUsingKeyTable(key, value, dict, 1)
+  end
+
+  return dict:set(key, value)
 end
 
 local set = curry(_set, 3)

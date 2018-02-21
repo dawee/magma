@@ -27,4 +27,16 @@ function suite.tests.set2(it)
   return test, run
 end
 
+function suite.tests.set3(it)
+  local test = it('should set a value into dict using a table of keys')
+
+  local function run(assert)
+    local setDict = set({'foo', 'bar'})(42)(dict())
+
+    return assert.is(setDict:get('foo'):get('bar'), 42)
+  end
+
+  return test, run
+end
+
 return suite

@@ -1,8 +1,8 @@
 local dict = require('magma.dict')
 
-local suite = {name = 'dict', tests = {}}
+local suiteName = 'dict'
 
-function suite.tests.dict1(it)
+local function createTest(it)
   local test = it('should create a new dict')
 
   local function run(assert)
@@ -13,7 +13,7 @@ function suite.tests.dict1(it)
   return test, run
 end
 
-function suite.tests.dict2(it)
+local function setAndCreateTest(it)
   local test = it('should set a new dict with setted key')
 
   local function run(assert)
@@ -29,7 +29,7 @@ function suite.tests.dict2(it)
   return test, run
 end
 
-function suite.tests.dict3(it)
+local function setAndChangeTest(it)
   local test = it('should set a new dict with a modified key')
 
   local function run(assert)
@@ -45,7 +45,7 @@ function suite.tests.dict3(it)
   return test, run
 end
 
-function suite.tests.dict4(it)
+local function setWithDictTest(it)
   local test = it('should set a new dict as a value')
 
   local function run(assert)
@@ -57,31 +57,7 @@ function suite.tests.dict4(it)
   return test, run
 end
 
-function suite.tests.dict5(it)
-  local test = it('should get content using table')
-
-  local function run(assert)
-    local dict = dict():set('foo', dict():set('bar', 'baz'))
-
-    return assert.is(dict:get({'foo', 'bar'}), 'baz')
-  end
-
-  return test, run
-end
-
-function suite.tests.dict6(it)
-  local test = it('should set content using table')
-
-  local function run(assert)
-    local dict = dict():set({'foo', 'bar', 'baz'}, 42)
-
-    return assert.is(dict:get({'foo', 'bar', 'baz'}), 42)
-  end
-
-  return test, run
-end
-
-function suite.tests.dict7(it)
+local function setMultipleKeysTest(it)
   local test = it('should set multiple keys')
 
   local function run(assert)
@@ -100,7 +76,7 @@ function suite.tests.dict7(it)
   return test, run
 end
 
-function suite.tests.dict8(it)
+local function setMultipleAndResetOneTest(it)
   local test = it('should set multiple keys and reset one')
 
   local function run(assert)
@@ -120,7 +96,7 @@ function suite.tests.dict8(it)
   return test, run
 end
 
-function suite.tests.dict9(it)
+local function setALotWithNumbersTest(it)
   local test = it('should create large dicts of numbers')
 
   local function run(assert)
@@ -169,7 +145,7 @@ function suite.tests.dict9(it)
   return test, run
 end
 
-function suite.tests.dict10(it)
+local function setALotWithStringsTest(it)
   local test = it('should create large dicts of strings')
 
   local function run(assert)
@@ -218,7 +194,7 @@ function suite.tests.dict10(it)
   return test, run
 end
 
-function suite.tests.dict11(it)
+local function setALotWithBooleansTest(it)
   local test = it('should create large dicts of booleans')
 
   local function run(assert)
@@ -267,7 +243,7 @@ function suite.tests.dict11(it)
   return test, run
 end
 
-function suite.tests.dict10(it)
+local function setALotWithLargeKeysTest(it)
   local test = it('should create large dicts of large string keys')
 
   local function run(assert)
@@ -300,7 +276,7 @@ function suite.tests.dict10(it)
   return test, run
 end
 
-function suite.tests.dict9(it)
+local function setALotWithNumbersAndChangeTest(it)
   local test = it('should change a value in large dicts of numbers')
 
   local function run(assert)
@@ -350,5 +326,19 @@ function suite.tests.dict9(it)
   return test, run
 end
 
-
-return suite
+return {
+  name = suiteName,
+  tests = {
+    createTest,
+    setAndCreateTest,
+    setAndChangeTest,
+    setWithDictTest,
+    setMultipleKeysTest,
+    setMultipleAndResetOneTest,
+    setALotWithNumbersTest,
+    setALotWithStringsTest,
+    setALotWithBooleansTest,
+    setALotWithLargeKeysTest,
+    setALotWithNumbersAndChangeTest,
+  }
+}
