@@ -1,6 +1,9 @@
 local curry = require('magma.curry')
 local emptyDict = require('magma.dict.empty')
 local isDict = require('magma.isdict')
+local split = require('magma.split')
+
+local cachedKeyPaths = {}
 
 local function setUsingKeyTable(keyTable, value, dict, keyIndex)
   local key = keyTable[keyIndex]
@@ -27,6 +30,20 @@ local function _set(key, value, dict)
 
   if type(key) == 'table' then
     return setUsingKeyTable(key, value, dict, 1)
+  end
+
+  if not type(key) == 'string' then
+    return dict
+  end
+
+  local isKeyPath = key:find('%.')
+
+  if isKeyPath then
+    if not cachedKeyPaths[key] then
+      cachedKeyPaths[key] = split('%.', key)
+    end
+
+    return setUsingKeyTable(cachedKeyPaths[key], value, dict, 1)
   end
 
   return dict:set(key, value)

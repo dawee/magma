@@ -1,9 +1,7 @@
 local dict = require('magma.dict')
 local set = require('magma.set')
 
-local suite = {name = 'set', tests = {}}
-
-function suite.tests.set1(it)
+local function setNewKeyTest(it)
   local test = it('should set a value into dict with a new key')
 
   local function run(assert)
@@ -15,7 +13,7 @@ function suite.tests.set1(it)
   return test, run
 end
 
-function suite.tests.set2(it)
+local function setCurriedTest(it)
   local test = it('should set a value into dict using a curried function')
 
   local function run(assert)
@@ -27,11 +25,11 @@ function suite.tests.set2(it)
   return test, run
 end
 
-function suite.tests.set3(it)
+local function setUsingTableOfKeys(it)
   local test = it('should set a value into dict using a table of keys')
 
   local function run(assert)
-    local setDict = set({'foo', 'bar'})(42)(dict())
+    local setDict = set({'foo', 'bar'}, 42, dict())
 
     return assert.is(setDict:get('foo'):get('bar'), 42)
   end
@@ -39,4 +37,24 @@ function suite.tests.set3(it)
   return test, run
 end
 
-return suite
+local function setUsingKeyPath(it)
+  local test = it('should set a value into dict using a key path')
+
+  local function run(assert)
+    local setDict = set('foo.bar', 42, dict())
+
+    return assert.is(setDict:get('foo'):get('bar'), 42)
+  end
+
+  return test, run
+end
+
+return {
+  name = 'set',
+  tests = {
+    setNewKeyTest,
+    setCurriedTest,
+    setUsingTableOfKeys,
+    setUsingKeyPath,
+  }
+}

@@ -1,7 +1,5 @@
 local dict = require('magma.dict')
 
-local suiteName = 'dict'
-
 local function createTest(it)
   local test = it('should create a new dict')
 
@@ -327,7 +325,7 @@ local function setALotWithNumbersAndChangeTest(it)
 end
 
 return {
-  name = suiteName,
+  name = 'dict',
   tests = {
     createTest,
     setAndCreateTest,
