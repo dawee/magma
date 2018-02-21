@@ -1,4 +1,5 @@
 return {
-  dict = require('test.suite.dict'),
-  set = require('test.suite.set')
+  require('test.suite.dict'),
+  require('test.suite.pipe'),
+  require('test.suite.set')
 }
