@@ -1,9 +1,9 @@
-local util = require('magma.util')
+local util = require('magma._util')
 local popCount = require('magma.dict.node.bitmap.popcount')
-local MASK = require('magma.mask')
-local SHIFT = require('magma.shift')
-local NOT_SET = require('magma.notset')
-local SIZE = require('magma.size')
+local MASK = require('magma._util').MASK
+local SHIFT = require('magma._util').SHIFT
+local NOT_SET = require('magma._util').NOT_SET
+local SIZE = require('magma._util').SIZE
 
 local MAX_BITMAP_INDEXED_SIZE = SIZE / 2
 

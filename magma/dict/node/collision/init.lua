@@ -1,5 +1,5 @@
 local update = require('magma.dict.node.collision.update')
-local util = require('magma.util')
+local util = require('magma._util')
 
 local function get(node, shift, keyHash, key, notSetValue)
   local entries = node.entries

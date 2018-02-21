@@ -2,9 +2,13 @@ local util = {}
 
 local stringHashCache = {}
 
-local STRING_HASH_CACHE_MIN_STRLEN = 16
-local STRING_HASH_CACHE_MAX_SIZE = 255
-local STRING_HASH_CACHE_SIZE = 0
+util.NOT_SET = {}
+util.SIZE = 32
+util.SHIFT = 5
+util.MASK = util.SIZE - 1
+util.STRING_HASH_CACHE_MIN_STRLEN = 16
+util.STRING_HASH_CACHE_MAX_SIZE = 255
+util.STRING_HASH_CACHE_SIZE = 0
 
 function util.is(valueA, valueB)
   return valueA == valueB
@@ -54,12 +58,12 @@ function util.cachedHashString(string)
   if hashed == nil then
     hashed = util.hashString(string)
 
-    if STRING_HASH_CACHE_SIZE == STRING_HASH_CACHE_MAX_SIZE then
-      STRING_HASH_CACHE_SIZE = 0
+    if util.STRING_HASH_CACHE_SIZE == util.STRING_HASH_CACHE_MAX_SIZE then
+      util.STRING_HASH_CACHE_SIZE = 0
       stringHashCache = {}
     end
 
-    STRING_HASH_CACHE_SIZE = STRING_HASH_CACHE_SIZE + 1
+    util.STRING_HASH_CACHE_SIZE = util.STRING_HASH_CACHE_SIZE + 1
     stringHashCache[string] = hashed
   end
 
@@ -91,7 +95,7 @@ function util.hash(o)
   end
 
   if (type(o) == 'string') then
-    if o:len() > STRING_HASH_CACHE_MIN_STRLEN then
+    if o:len() > util.STRING_HASH_CACHE_MIN_STRLEN then
       return util.cachedHashString(o)
     else
       return util.hashString(o)

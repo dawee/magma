@@ -1,7 +1,7 @@
-local util = require('magma.util')
+local util = require('magma._util')
 local createNodes = require('magma.dict.node.create')
-local SIZE = require('magma.size')
-local NOT_SET = require('magma.notset')
+local SIZE = require('magma._util').SIZE
+local NOT_SET = require('magma._util').NOT_SET
 
 local MAX_ARRAY_MAP_SIZE = SIZE / 4
 

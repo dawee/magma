@@ -1,7 +1,7 @@
 local newArrayNode = require('magma.dict.node.array')
 local updateNode = require('magma.dict.node.update')
-local util = require('magma.util')
-local NOT_SET = require('magma.notset')
+local util = require('magma._util')
+local NOT_SET = require('magma._util').NOT_SET
 
 local CHANGE_LENGTH = {value = false}
 local DID_ALTER = {value = false}

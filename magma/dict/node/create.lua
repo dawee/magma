@@ -1,5 +1,5 @@
 local newValueNode = require('magma.dict.node.value')
-local util = require('magma.util')
+local util = require('magma._util')
 
 local function newOwnerId()
   return {}

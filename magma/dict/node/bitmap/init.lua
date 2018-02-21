@@ -1,8 +1,8 @@
 local update = require('magma.dict.node.bitmap.update')
 local popCount = require('magma.dict.node.bitmap.popcount')
-local util = require('magma.util')
-local MASK = require('magma.mask')
-local SHIFT = require('magma.shift')
+local util = require('magma._util')
+local MASK = require('magma._util').MASK
+local SHIFT = require('magma._util').SHIFT
 
 local function get(node, shift, keyHash, key, notSetValue)
   if keyHash == nil then

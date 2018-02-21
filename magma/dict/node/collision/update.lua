@@ -1,5 +1,5 @@
-local util = require('magma.util')
-local NOT_SET = require('magma.notset')
+local util = require('magma._util')
+local NOT_SET = require('magma._util').NOT_SET
 
 local function updateHashCollisionNode(node, ownerID, shift, keyHash, key, value, didChangeSize, didAlter)
   local mergeIntoNode = require('magma.dict.node.merge')

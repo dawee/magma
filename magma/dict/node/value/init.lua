@@ -1,4 +1,4 @@
-local util = require('magma.util')
+local util = require('magma._util')
 local update = require('magma.dict.node.value.update')
 
 local function get(node, shift, keyHash, key, notSetValue)

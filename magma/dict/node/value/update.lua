@@ -1,6 +1,6 @@
-local util = require('magma.util')
+local util = require('magma._util')
 local mergeIntoNode = require('magma.dict.node.merge')
-local NOT_SET = require('magma.notset')
+local NOT_SET = require('magma._util').NOT_SET
 
 local function valueNodeUpdate(node, ownerID, shift, keyHash, key, value, didChangeSize, didAlter)
   local newValueNode = require('magma.dict.node.value')
