@@ -2,15 +2,9 @@ local util = require('magma.util')
 local mergeIntoNode = require('magma.dict.node.merge')
 local NOT_SET = require('magma.notset')
 
-local function valueNodeGet(node, shift, keyHash, key, notSetValue)
-  if util.is(key, node.entry[1]) then
-    return node.entry[2]
-  else
-    return notSetValue
-  end
-end
-
 local function valueNodeUpdate(node, ownerID, shift, keyHash, key, value, didChangeSize, didAlter)
+  local newValueNode = require('magma.dict.node.value')
+
   local removed = value == NOT_SET
   local keyMatch = util.is(key, node.entry[1])
 
@@ -38,14 +32,4 @@ local function valueNodeUpdate(node, ownerID, shift, keyHash, key, value, didCha
   return mergeIntoNode(node, ownerID, shift, util.hash(key), {key, value})
 end
 
-local function newValueNode(ownerID, keyHash, entry)
-  local node = {ownerID = ownerID, keyHash = keyHash, entry = entry}
-
-  node.new = newValueNode
-  node.get = valueNodeGet
-  node.update = valueNodeUpdate
-
-  return node
-end
-
-return newValueNode
+return valueNodeUpdate

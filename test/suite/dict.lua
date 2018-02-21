@@ -300,5 +300,55 @@ function suite.tests.dict10(it)
   return test, run
 end
 
+function suite.tests.dict9(it)
+  local test = it('should change a value in large dicts of numbers')
+
+  local function run(assert)
+    local dict = dict()
+      :set('foo1', 1)
+      :set('foo2', 2)
+      :set('foo3', 3)
+      :set('foo4', 4)
+      :set('foo5', 5)
+      :set('foo6', 6)
+      :set('foo7', 7)
+      :set('foo8', 8)
+      :set('foo9', 9)
+      :set('foo10', 10)
+      :set('foo11', 11)
+      :set('foo12', 12)
+      :set('foo13', 13)
+      :set('foo14', 14)
+      :set('foo15', 15)
+      :set('foo16', 16)
+      :set('foo17', 17)
+      :set('foo18', 18)
+      :set('foo1', 10)
+
+    return assert.all(
+      assert.is(dict:get('foo1'), 10),
+      assert.is(dict:get('foo2'), 2),
+      assert.is(dict:get('foo3'), 3),
+      assert.is(dict:get('foo4'), 4),
+      assert.is(dict:get('foo5'), 5),
+      assert.is(dict:get('foo6'), 6),
+      assert.is(dict:get('foo7'), 7),
+      assert.is(dict:get('foo8'), 8),
+      assert.is(dict:get('foo9'), 9),
+      assert.is(dict:get('foo10'), 10),
+      assert.is(dict:get('foo11'), 11),
+      assert.is(dict:get('foo12'), 12),
+      assert.is(dict:get('foo13'), 13),
+      assert.is(dict:get('foo14'), 14),
+      assert.is(dict:get('foo15'), 15),
+      assert.is(dict:get('foo16'), 16),
+      assert.is(dict:get('foo17'), 17),
+      assert.is(dict:get('foo18'), 18)
+    )
+  end
+
+  return test, run
+end
+
 
 return suite
