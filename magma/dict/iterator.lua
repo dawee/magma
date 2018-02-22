@@ -20,7 +20,7 @@ local function iteratorValue(k, v, iteratorResult)
   return {value = value, done = false}
 end
 
-local function mapIteratorValue(entry)
+local function dictIteratorValue(entry)
   return iteratorValue(entry[1], entry[2])
 end
 
@@ -33,15 +33,17 @@ local function next(iterator)
      local node = stack.node
      local index = stack.index;
 
+     stack.index = stack.index + 1
+
      if node.entry then
        if index == 1 then
-         return mapIteratorValue(node.entry)
+         return dictIteratorValue(node.entry)
        end
      else if node.entries then
        maxIndex = #node.entries + 1
 
        if (maxIndex - index) >= 1 then
-         return mapIteratorValue(node.entries[iterator._reverse and (maxIndex - index) or index])
+         return dictIteratorValue(node.entries[iterator._reverse and (maxIndex - index) or index])
        end
      else
        maxIndex = #node.entries + 1
@@ -51,11 +53,11 @@ local function next(iterator)
 
          if subNode then
            if subNode.entry then
-             return mapIteratorValue(subNode.entry)
+             return dictIteratorValue(subNode.entry)
            end
 
-           iterator.stack = mapIteratorFrame(subNode, stack)
-           stack = iterator.stack
+           iterator._stack = mapIteratorFrame(subNode, stack)
+           stack = iterator._stack
          end
 
          goto continue
@@ -66,7 +68,6 @@ local function next(iterator)
      stack = iterator._stack
 
      ::continue::
-     stack.index = stack.index + 1
    end
 
    return iteratorDone()
