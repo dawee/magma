@@ -10,6 +10,10 @@ util.STRING_HASH_CACHE_MIN_STRLEN = 16
 util.STRING_HASH_CACHE_MAX_SIZE = 255
 util.STRING_HASH_CACHE_SIZE = 0
 
+function util.newOwnerId()
+  return {}
+end
+
 function util.is(valueA, valueB)
   return valueA == valueB
 end

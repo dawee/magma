@@ -1,13 +1,9 @@
 local newValueNode = require('magma.dict.node.value')
 local util = require('magma._util')
 
-local function newOwnerId()
-  return {}
-end
-
 local function createNodes(ownerID, entries, key, value)
   if (not ownerID) then
-    ownerID = newOwnerId()
+    ownerID = util.newOwnerId()
   end
 
   local node = newValueNode(ownerID, util.hash(key), {key, value})
