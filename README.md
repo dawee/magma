@@ -8,20 +8,25 @@ Functional programming library for [Löve](http://love2d.org).
 
 ```lua
 local dict = require('magma.dict')
+local get = require('magma.get')
+local set = require('magma.set')
 
-local bookSeries = dict()
-  :set('author', 'Lemony Snicket')
-  :set('title', 'A Series Of Unfortunate Events')
+local bookSeries = dict({
+  author = 'Lemony Snicket',
+  title = 'A Series Of Unfortunate Events'
+})
 
-local book1 = bookSeries
-  :set('title', bookSeries:get('title') .. ': The Bad Beginning')
+local getTitle = get('title')
+local setTitle = set('title')
+local book1 = setTitle(getTitle(bookSeries) .. ': The Bad Beginning')(bookSeries)
+local book2 = setTitle(getTitle(bookSeries) .. ': The Reptile Room')(bookSeries)
 
-local book2 = bookSeries
-  :set('title', bookSeries:get('title') .. ': The Reptile Room')
+print('series title ->', getTitle(bookSeries))
+-- series title -> A Series Of Unfortunate Events : The Bad Beginning
 
-print('book1 title :', book1:get('title'))
--- A Series Of Unfortunate Events : The Bad Beginning
+print('book1 title ->', getTitle(book1))
+-- book1 title -> A Series Of Unfortunate Events : The Bad Beginning
 
-print('book2 title :', book2:get('title'))
--- A Series Of Unfortunate Events : The Reptile Room
+print('book2 title ->', getTitle(book2))
+-- book1 title -> A Series Of Unfortunate Events : The Reptile Room
 ```
