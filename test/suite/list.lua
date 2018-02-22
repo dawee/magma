@@ -12,10 +12,26 @@ local function emptyListTest(it)
   return test, run
 end
 
+local function pushOneEntryTest(it)
+  local test = it('should push one entry into list')
+
+  local function run(assert)
+    local fedList = list():push('foo')
+
+    return assert.all(
+      assert.is(fedList.size, 1),
+      assert.is(fedList._tail.array[1], 'foo')
+    )
+  end
+
+  return test, run
+end
+
 
 return {
   name = 'list',
   tests = {
     emptyListTest,
+    pushOneEntryTest,
   }
 }
