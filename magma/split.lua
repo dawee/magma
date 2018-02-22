@@ -1,6 +1,6 @@
 local curry = require('magma.curry')
 
-function _split(pat, str)
+local function _split(pat, str)
    local t = {n = 0}
    local fpat = "(.-)" .. pat
    local last_end = 1
