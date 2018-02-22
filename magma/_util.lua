@@ -9,6 +9,8 @@ util.MASK = util.SIZE - 1
 util.STRING_HASH_CACHE_MIN_STRLEN = 16
 util.STRING_HASH_CACHE_MAX_SIZE = 255
 util.STRING_HASH_CACHE_SIZE = 0
+util.CHANGE_LENGTH = {value = false}
+util.DID_ALTER = {value = false}
 
 function util.newOwnerId()
   return {}

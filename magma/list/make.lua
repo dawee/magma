@@ -1,6 +1,7 @@
 local util = require('magma._util')
 local ensureOwner = require('magma.list.owner')
 local setListBounds = require('magma.list.bounds')
+local update = require('magma.list.update')
 
 local function asMutable(list)
   return list.__ownerID and list or list:ensureOwner(util.newOwnerId())
@@ -21,7 +22,7 @@ local function push(list, ...)
     setListBounds(newList, 0, oldSize + #values);
 
     for ii = 1, #values do
-      newList:set(oldSize + ii, values[ii])
+      newList:update(oldSize + ii, values[ii])
     end
   end
 
@@ -44,6 +45,7 @@ local function makeList(origin, capacity, level, root, tail, ownerID, hash)
   list.asMutable = asMutable
   list.ensureOwner = ensureOwner
   list.push = push
+  list.update = update
   list.withMutations = withMutations
 
   return list
