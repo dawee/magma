@@ -342,6 +342,26 @@ local function iterateOnce(it)
   return test, run
 end
 
+local function iterateToEnd(it)
+  local test = it('should iterate to end')
+
+  local function run(assert)
+    local setDict = dict():set('foo', 'bar')
+    local iterator = setDict:iterator()
+
+    iterator:next()
+
+    local el = iterator:next()
+
+    return assert.all(
+      assert.is(el.done, true),
+      assert.is(el.value, nil)
+    )
+  end
+
+  return test, run
+end
+
 return {
   name = 'dict',
   tests = {
@@ -356,6 +376,7 @@ return {
     setALotWithBooleansTest,
     setALotWithLargeKeysTest,
     setALotWithNumbersAndChangeTest,
-    iterateOnce
+    iterateOnce,
+    iterateToEnd
   }
 }
