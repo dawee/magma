@@ -113,8 +113,7 @@ function util.hash(o)
     return smi(o:hashCode())
   end
 
-  -- @TODO throw that :
-  print('Value type ' .. type(o) .. ' cannot be hashed.')
+  error('Value type ' .. type(o) .. ' cannot be hashed.')
 end
 
 return util

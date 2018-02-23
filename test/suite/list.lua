@@ -16,9 +16,13 @@ local function pushIntoListTest(it)
   local test = it('should push one entry into list')
 
   local function run(assert)
-    local fedList = list():push('foo')
+    local emptyList = list()
+    local fedList = emptyList:push('foo')
 
-    return assert.is(emptyList.size, 1)
+    return assert.all(
+      assert.is(emptyList.size, 0),
+      assert.is(fedList.size, 1)
+    )
   end
 
   return test, run

@@ -1,4 +1,5 @@
 local util = require('magma._util')
+local newVNode = require('magma.list.vnode')
 
 local function getTailOffset(size)
   local tailOffset

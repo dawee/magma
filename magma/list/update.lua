@@ -1,6 +1,6 @@
-local setListBounds = require('magma.list.bounds')
 local util = require('magma._util')
-
+local setListBounds = require('magma.list.bounds')
+local newVNode = require('magma.list.vnode')
 
 local function editableVNode(node, ownerID)
   if ownerID and node and (ownerID == node.ownerID) then
