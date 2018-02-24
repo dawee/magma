@@ -37,7 +37,7 @@ local function iterateList(list, reverse)
   iterateLeaf = function (node, offset)
     local array
 
-    if (offset == tailPos) then
+    if offset == tailPos then
       array = tail and tail.array
     else
       array = node and node.array
@@ -59,12 +59,12 @@ local function iterateList(list, reverse)
 
     return function ()
       if from == to then
-        return DONE;
+        return DONE
       end
 
       local idx
 
-      if (reverse) then
+      if reverse then
         to = to - 1
         idx = to
       else
@@ -85,10 +85,10 @@ local function iterateList(list, reverse)
     if offset > left then
       from = 0
     else
-      from = bit.arshift((left - offset), level)
+      from = bit.arshift(left - offset, level)
     end
 
-    local to = bit.arshift((right - offset), level) + 1
+    local to = bit.arshift(right - offset, level) + 1
 
     if to > util.SIZE then
       to = util.SIZE
@@ -116,8 +116,8 @@ local function iterateList(list, reverse)
           to = to - 1
           idx = to
         else
-          from = from + 1
           idx = from
+          from = from + 1
         end
 
         values = iterateNodeOrLeaf(
