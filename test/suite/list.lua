@@ -93,6 +93,28 @@ local function push2IntoListTest(it)
   return test, run
 end
 
+local function push2IntoListIterateTest(it)
+  local test = it('should push 2 entries into list and iterate over entries')
+
+  local function run(assert)
+    local fedList = list():push('foo'):push('bar')
+    local iterator = fedList:iterator()
+    local entry1 = iterator:next()
+    local entry2 = iterator:next()
+    local entry3 = iterator:next()
+
+    return assert.all(
+      assert.is(entry1.value[1], 0),
+      assert.is(entry1.value[2], 'foo'),
+      assert.is(entry2.value[1], 1),
+      assert.is(entry2.value[2], 'bar'),
+      assert.is(entry3.done, true)
+    )
+  end
+
+  return test, run
+end
+
 local function push10IntoListTest(it)
   local test = it('should push 10 entries into list')
 
@@ -129,6 +151,7 @@ return {
     pushIntoListIterateTest,
     pushIntoListIterateTwiceTest,
     push2IntoListTest,
+    push2IntoListIterateTest,
     push10IntoListTest,
   }
 }

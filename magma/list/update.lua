@@ -2,16 +2,17 @@ local util = require('magma._util')
 local setListBounds = require('magma.list.bounds')
 local newVNode = require('magma.list.vnode')
 local getTailOffset = require('magma.list.tail')
+local newArray = require('magma.list.array')
 
 local function editableVNode(node, ownerID)
   if ownerID and node and (ownerID == node.ownerID) then
     return node
   end
 
-  local array = {}
+  local array = newArray()
 
   if node then
-    array = {unpack(node.array)}
+    array = node.array:clone()
   end
 
   return newVNode(array, ownerID)
@@ -35,7 +36,7 @@ end
 
 local function updateVNode(node, ownerID, level, index, value, didAlter)
   local idx = bit.band(bit.rshift(index, level), util.MASK)
-  local nodeHas = node and (idx <= #node.array)
+  local nodeHas = node and (idx < node.array:size())
 
   if not nodeHas and (value == undefined) then
     return node
@@ -44,7 +45,7 @@ local function updateVNode(node, ownerID, level, index, value, didAlter)
   local newNode
 
   if level > 0 then
-    local lowerNode = node and node.array[idx]
+    local lowerNode = node and node.array:get(idx)
     local newLowerNode = updateVNode(
       lowerNode,
       ownerID,
@@ -59,12 +60,12 @@ local function updateVNode(node, ownerID, level, index, value, didAlter)
     end
 
     newNode = editableVNode(node, ownerID)
-    newNode.array[idx] = newLowerNode
+    newNode.array:set(idx, newLowerNode)
 
     return newNode
   end
 
-  if nodeHas and (node.array[idx] == value) then
+  if nodeHas and (node.array:get(idx) == value) then
     return node
   end
 
@@ -72,10 +73,10 @@ local function updateVNode(node, ownerID, level, index, value, didAlter)
 
   newNode = editableVNode(node, ownerID)
 
-  if (value == nil) and (idx == #newNode.array) then
-    table.remove(newNode.array, #newNode.array)
+  if (value == nil) and (idx == newNode.array:size() - 1) then
+    newNode.array:pop()
   else
-    newNode.array[idx] = value
+    newNode.array:set(idx, value)
   end
 
   return newNode

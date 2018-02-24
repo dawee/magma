@@ -76,7 +76,7 @@ local function iterateList(list, reverse)
         from = from + 1
       end
 
-      return array and array[idx]
+      return array and array:get(idx)
     end
   end
 
@@ -125,7 +125,7 @@ local function iterateList(list, reverse)
         end
 
         values = iterateNodeOrLeaf(
-          array and array[idx],
+          array and array:get(idx),
           level - util.SHIFT,
           offset + bit.lshift(idx, level)
         )

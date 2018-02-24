@@ -1,7 +1,7 @@
 local util = require('magma._util')
 local newVNode = require('magma.list.vnode')
 local getTailOffset = require('magma.list.tail')
-
+local newArray = require('magma.list.array')
 
 local function setListBounds(list, listBegin, listEnd)
   if not (listBegin == nil) then
@@ -42,7 +42,7 @@ local function setListBounds(list, listBegin, listEnd)
   while (newOrigin + offsetShift) < 0 do
     local tab
 
-    if newRoot and #newRoot.array > 0 then
+    if newRoot and newRoot.array:size() > 0 then
       tab = {nil, newRoot}
     else
       tab = {}
@@ -66,7 +66,7 @@ local function setListBounds(list, listBegin, listEnd)
   while newTailOffset >= bit.lshift(1, (newLevel + util.SHIFT)) do
     local tab
 
-    if newRoot and (#newRoot.array > 0) then
+    if newRoot and (newRoot.array:size() > 0) then
       tab = {newRoot}
     else
       tab = {}
@@ -82,7 +82,7 @@ local function setListBounds(list, listBegin, listEnd)
   if newTailOffset < oldTailOffset then
     newTail = listNodeFor(list, newCapacity - 1)
   elseif newTailOffset > oldTailOffset then
-    newTail = newVNode({}, owner)
+    newTail = newVNode(newArray(), owner)
   else
     newTail = oldTail
   end
@@ -91,7 +91,7 @@ local function setListBounds(list, listBegin, listEnd)
     oldTail and
     (newTailOffset > oldTailOffset) and
     (newOrigin < oldCapacity) and
-    (#oldTail.array > 0)
+    (oldTail.array:size() > 0)
   ) then
     newRoot = editableVNode(newRoot, owner)
     local node = newRoot
@@ -100,12 +100,12 @@ local function setListBounds(list, listBegin, listEnd)
     while level > util.SHIFT do
       local idx = bit.band(bit.rshift(oldTailOffset, level), util.MASK)
 
-      node.array[idx] = editableVNode(node.array[idx], owner)
+      node.array:set(idx, editableVNode(node.array:get(idx), owner))
       node = node.array[idx]
       level = level - util.SHIFT
     end
 
-    node.array[bit.band(bit.rshift(oldTailOffset, SHIFT), MASK)] = oldTail
+    node.array:set(bit.band(bit.rshift(oldTailOffset, SHIFT), MASK), oldTail)
   end
 
   if newCapacity < oldCapacity then
@@ -133,7 +133,7 @@ local function setListBounds(list, listBegin, listEnd)
       end
 
       newLevel = newLevel - util.SHIFT
-      newRoot = newRoot.array[beginIndex]
+      newRoot = newRoot.array:get(beginIndex)
     end
 
     if newRoot and (newOrigin > oldOrigin) then
