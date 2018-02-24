@@ -141,6 +141,64 @@ local function push10IntoListTest(it)
   return test, run
 end
 
+local function push10IntoListIterateTest(it)
+  local test = it('should push 10 entries into list and iterate over entries')
+
+  local function run(assert)
+    local fedList = list()
+      :push('foo1')
+      :push('foo2')
+      :push('foo3')
+      :push('foo4')
+      :push('foo5')
+      :push('foo6')
+      :push('foo7')
+      :push('foo8')
+      :push('foo9')
+      :push('foo10')
+
+    local iterator = fedList:iterator()
+
+    local entry1 = iterator:next()
+    local entry2 = iterator:next()
+    local entry3 = iterator:next()
+    local entry4 = iterator:next()
+    local entry5 = iterator:next()
+    local entry6 = iterator:next()
+    local entry7 = iterator:next()
+    local entry8 = iterator:next()
+    local entry9 = iterator:next()
+    local entry10 = iterator:next()
+    local entry11 = iterator:next()
+
+    return assert.all(
+      assert.is(entry1.value[1], 0),
+      assert.is(entry1.value[2], 'foo1'),
+      assert.is(entry2.value[1], 1),
+      assert.is(entry2.value[2], 'foo2'),
+      assert.is(entry3.value[1], 2),
+      assert.is(entry3.value[2], 'foo3'),
+      assert.is(entry4.value[1], 3),
+      assert.is(entry4.value[2], 'foo4'),
+      assert.is(entry5.value[1], 4),
+      assert.is(entry5.value[2], 'foo5'),
+      assert.is(entry6.value[1], 5),
+      assert.is(entry6.value[2], 'foo6'),
+      assert.is(entry7.value[1], 6),
+      assert.is(entry7.value[2], 'foo7'),
+      assert.is(entry8.value[1], 7),
+      assert.is(entry8.value[2], 'foo8'),
+      assert.is(entry9.value[1], 8),
+      assert.is(entry9.value[2], 'foo9'),
+      assert.is(entry10.value[1], 9),
+      assert.is(entry10.value[2], 'foo10'),
+      assert.is(entry11.done, true)
+    )
+  end
+
+  return test, run
+end
+
 
 return {
   name = 'list',
@@ -153,5 +211,6 @@ return {
     push2IntoListTest,
     push2IntoListIterateTest,
     push10IntoListTest,
+    push10IntoListIterateTest,
   }
 }
