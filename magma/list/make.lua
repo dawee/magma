@@ -2,6 +2,7 @@ local util = require('magma._util')
 local ensureOwner = require('magma.list.owner')
 local setListBounds = require('magma.list.bounds')
 local update = require('magma.list.update')
+local newListIterator = require('magma.list.iterator')
 
 local function clear(list)
   local emptyList = require('magma.list.empty')
@@ -71,6 +72,7 @@ local function makeList(origin, capacity, level, root, tail, ownerID, hash)
   list.asMutable = asMutable
   list.clear = clear
   list.ensureOwner = ensureOwner
+  list.iterator = newListIterator
   list.push = push
   list.update = update
   list.wasAltered = wasAltered

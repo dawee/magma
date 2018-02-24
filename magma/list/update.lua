@@ -1,6 +1,7 @@
 local util = require('magma._util')
 local setListBounds = require('magma.list.bounds')
 local newVNode = require('magma.list.vnode')
+local getTailOffset = require('magma.list.tail')
 
 local function editableVNode(node, ownerID)
   if ownerID and node and (ownerID == node.ownerID) then
@@ -14,18 +15,6 @@ local function editableVNode(node, ownerID)
   end
 
   return newVNode(array, ownerID)
-end
-
-local function getTailOffset(size)
-  local tailOffset
-
-  if size < util.SIZE then
-    tailOffset = 0
-  else
-    tailOffset = bit.lshift(bit.rshift((size - 1), util.SHIFT), util.SHIFT)
-  end
-
-  return tailOffset
 end
 
 local function returnTrue()

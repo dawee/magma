@@ -1,3 +1,5 @@
+local util = require('magma._util')
+
 local function dictIteratorFrame(node, prev)
   return {
     node = node,
@@ -6,22 +8,8 @@ local function dictIteratorFrame(node, prev)
   }
 end
 
-local function iteratorDone()
-  return {value = nil, done = true}
-end
-
-local function iteratorValue(k, v, iteratorResult)
-  local value = {k, v}
-
-  if iteratorResult then
-    return value
-  end
-
-  return {value = value, done = false}
-end
-
 local function dictIteratorValue(entry)
-  return iteratorValue(entry[1], entry[2])
+  return util.iteratorValue(entry[1], entry[2])
 end
 
 local function next(iterator)
@@ -70,7 +58,7 @@ local function next(iterator)
      ::continue::
    end
 
-   return iteratorDone()
+   return util.iteratorDone()
  end
 end
 

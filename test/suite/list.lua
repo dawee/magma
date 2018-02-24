@@ -1,12 +1,26 @@
 local list = require('magma.list')
 
 local function emptyListTest(it)
-  local test = it('should create empty list')
+  local test = it('should create an empty list')
 
   local function run(assert)
     local emptyList = list()
 
     return assert.is(emptyList.size, 0)
+  end
+
+  return test, run
+end
+
+local function emptyListIterateTest(it)
+  local test = it('should create an empty list and return done=true when trying to iterate')
+
+  local function run(assert)
+    local emptyList = list()
+    local iterator = emptyList:iterator()
+    local entry = iterator:next()
+
+    return assert.is(entry.done, true)
   end
 
   return test, run
@@ -44,12 +58,40 @@ local function push2IntoListTest(it)
   return test, run
 end
 
+local function push10IntoListTest(it)
+  local test = it('should push 10 entries into list')
+
+  local function run(assert)
+    local emptyList = list()
+    local fedList = emptyList
+      :push('foo1')
+      :push('foo2')
+      :push('foo3')
+      :push('foo4')
+      :push('foo5')
+      :push('foo6')
+      :push('foo7')
+      :push('foo8')
+      :push('foo9')
+      :push('foo10')
+
+    return assert.all(
+      assert.is(emptyList.size, 0),
+      assert.is(fedList.size, 10)
+    )
+  end
+
+  return test, run
+end
+
 
 return {
   name = 'list',
   tests = {
     emptyListTest,
+    emptyListIterateTest,
     pushIntoListTest,
     push2IntoListTest,
+    push10IntoListTest,
   }
 }

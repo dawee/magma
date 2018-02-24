@@ -12,6 +12,21 @@ util.STRING_HASH_CACHE_SIZE = 0
 util.CHANGE_LENGTH = {value = false}
 util.DID_ALTER = {value = false}
 
+function util.iteratorDone()
+  return {value = nil, done = true}
+end
+
+function util.iteratorValue(k, v, iteratorResult)
+  local value = {k, v}
+
+  if iteratorResult then
+    return value
+  end
+
+  return {value = value, done = false}
+end
+
+
 function util.newOwnerId()
   return {}
 end
