@@ -12,11 +12,15 @@ local function next(iterator)
 
   if iterator.reverse then
     iterator.index = iterator.index - 1
-  else
+  end
+
+  local entry = util.iteratorValue(iterator.index, value)
+
+  if not iterator.reverse then
     iterator.index = iterator.index + 1
   end
 
-  return util.iteratorValue(type, iterator.index, value)
+  return entry
 end
 
 local function iterateList(list, reverse)
@@ -68,8 +72,8 @@ local function iterateList(list, reverse)
         to = to - 1
         idx = to
       else
-        from = from + 1
         idx = from
+        from = from + 1
       end
 
       return array and array[idx]
