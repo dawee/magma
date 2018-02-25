@@ -12,6 +12,24 @@ local function emptyListTest(it)
   return test, run
 end
 
+local function createListUsingKVTableTest(it)
+  local test = it('should create a list and feed it using value table')
+
+  local function run(assert)
+    local fedList = list({'foo', 'bar'})
+    local iterator = fedList:iterator()
+    local entry1 = iterator:next()
+    local entry2 = iterator:next()
+
+    return assert.all(
+      assert.is(entry1.value[2], 'foo'),
+      assert.is(entry2.value[2], 'bar')
+    )
+  end
+
+  return test, run
+end
+
 local function emptyListIterateTest(it)
   local test = it('should create an empty list and return done=true when trying to iterate')
 
@@ -205,6 +223,7 @@ return {
   tests = {
     emptyListTest,
     emptyListIterateTest,
+    createListUsingKVTableTest,
     pushIntoListTest,
     pushIntoListIterateTest,
     pushIntoListIterateTwiceTest,
