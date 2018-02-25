@@ -3,6 +3,7 @@ return {
   require('test.suite.concat'),
   require('test.suite.dict'),
   require('test.suite.find'),
+  require('test.suite.get'),
   require('test.suite.list'),
   require('test.suite.merge'),
   require('test.suite.pipe'),
