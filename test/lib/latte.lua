@@ -123,7 +123,7 @@ local function addSuite(suite, pattern)
   for name, newTest in pairs(suite.tests) do
     local test, run = newTest(it)
 
-    if (not pattern) or string.find(test.description, pattern) then
+    if (not pattern) or string.find(suite.name .. ' ' .. test.description, pattern) then
       packedSuite.tests[#packedSuite.tests + 1] = {
         description = test.description,
         run = run,
