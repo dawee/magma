@@ -9,5 +9,6 @@ return {
   require('test.suite.merge'),
   require('test.suite.pipe'),
   require('test.suite.push'),
+  require('test.suite.reduce'),
   require('test.suite.set')
 }
