@@ -11,6 +11,21 @@ local function createTest(it)
   return test, run
 end
 
+local function createUsingKVTable(it)
+  local test = it('should create a dict and feed it with a key-value table')
+
+  local function run(assert)
+    local fedDict = dict({foo = 'bar', bar = 42})
+
+    return assert.all(
+      assert.is(fedDict:get('foo'), 'bar'),
+      assert.is(fedDict:get('bar'), 42)
+    )
+  end
+
+  return test, run
+end
+
 local function setAndCreateTest(it)
   local test = it('should set a new dict with setted key')
 
@@ -324,7 +339,7 @@ local function setALotWithNumbersAndChangeTest(it)
   return test, run
 end
 
-local function iterateOnce(it)
+local function iterateOnceTest(it)
   local test = it('should iterate once')
 
   local function run(assert)
@@ -342,7 +357,7 @@ local function iterateOnce(it)
   return test, run
 end
 
-local function iterateToEnd(it)
+local function iterateToEndTest(it)
   local test = it('should iterate to end')
 
   local function run(assert)
@@ -366,6 +381,7 @@ return {
   name = 'dict',
   tests = {
     createTest,
+    createUsingKVTable,
     setAndCreateTest,
     setAndChangeTest,
     setWithDictTest,
@@ -376,7 +392,7 @@ return {
     setALotWithBooleansTest,
     setALotWithLargeKeysTest,
     setALotWithNumbersAndChangeTest,
-    iterateOnce,
-    iterateToEnd
+    iterateOnceTest,
+    iterateToEndTest
   }
 }
