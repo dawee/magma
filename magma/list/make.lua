@@ -67,6 +67,7 @@ local function makeList(origin, capacity, level, root, tail, ownerID, hash)
     __ownerID = ownerID,
     __hash = hash,
     __altered = false,
+    __type = 'list'
   }
 
   list.asMutable = asMutable
