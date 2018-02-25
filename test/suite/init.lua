@@ -2,6 +2,7 @@ return {
   require('test.suite.action'),
   require('test.suite.concat'),
   require('test.suite.dict'),
+  require('test.suite.each'),
   require('test.suite.find'),
   require('test.suite.get'),
   require('test.suite.list'),
