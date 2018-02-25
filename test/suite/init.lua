@@ -1,4 +1,5 @@
 return {
+  require('test.suite.action'),
   require('test.suite.concat'),
   require('test.suite.dict'),
   require('test.suite.list'),
